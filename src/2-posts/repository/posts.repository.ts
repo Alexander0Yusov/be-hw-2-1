@@ -5,10 +5,6 @@ import { postCollection } from '../../db/mongo.db';
 import { PostQueryInput } from '../router/input/blog-query.input';
 
 export const postsRepository = {
-  // async findAll(): Promise<WithId<Post>[]> {
-  //   return postCollection.find().toArray();
-  // },
-
   async findMany(
     queryDto: PostQueryInput,
   ): Promise<{ items: WithId<Post>[]; totalCount: number }> {

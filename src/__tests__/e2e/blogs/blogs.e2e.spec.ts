@@ -3,11 +3,7 @@ import express from 'express';
 import { setupApp } from '../../../setup-app';
 import { createFakeBlog } from '../../utils/blogs/create-fake-blog';
 import { HttpStatus } from '../../../core/types/HttpStatus';
-import {
-  BLOGS_PATH,
-  POSTS_PATH,
-  TESTING_PATH,
-} from '../../../core/paths/paths';
+import { BLOGS_PATH, TESTING_PATH } from '../../../core/paths/paths';
 import { generateBasicAuthToken } from '../../utils/generateBasicAuthToken';
 import { BlogInputDto } from '../../../1-blogs/dto/blog-input.dto';
 import { runDB, stopDB } from '../../../db/mongo.db';
