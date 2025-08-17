@@ -45,7 +45,10 @@ describe('User API', () => {
       .expect(HttpStatus.Created);
 
     const userListResponse = await request(app)
-      .get(USERS_PATH)
+      .get(
+        USERS_PATH +
+          '?pageSize=15&pageNumber=1&searchLoginTerm=keL&searchEmailTerm=ke&sortDirection=asc&sortBy=login',
+      )
       .expect(HttpStatus.Ok);
 
     expect(userListResponse.body.items).toBeInstanceOf(Array);

@@ -5,8 +5,6 @@ import { setDefaultSortAndPaginationIfNotExist } from '../../../core/helpers/set
 import { usersQwRepository } from '../../qw-repository/users-qw-repository';
 import { UserQueryInput } from '../input/user-query.input';
 
-// import { mapToPostListPaginatedOutput } from '../../mappers/map-to-postlist-paginated-output.util';
-
 export async function getUserListHandler(req: Request, res: Response) {
   try {
     const queryData = matchedData(req, { locations: ['query'] });

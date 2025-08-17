@@ -15,17 +15,18 @@ export async function postAuthHandler(
 
     if (!existsUserId) {
       res.sendStatus(HttpStatus.Unauthorized);
-      return;
     }
 
-    const existsHash = await usersQwRepository.findHashById(existsUserId);
+    const existsHash = await usersQwRepository.findHashById(
+      existsUserId as string,
+    );
 
     const match = await bcrypt.compare(req.body.password, existsHash);
 
     if (match) {
       res.sendStatus(HttpStatus.NoContent);
     } else {
-      res.status(HttpStatus.Unauthorized);
+      res.sendStatus(HttpStatus.Unauthorized);
     }
   } catch (error: unknown) {
     res.sendStatus(HttpStatus.InternalServerError);

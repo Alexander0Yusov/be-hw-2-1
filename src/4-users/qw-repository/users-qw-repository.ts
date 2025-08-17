@@ -22,10 +22,7 @@ export const usersQwRepository = {
 
   async findByEmailOrLogin(loginOrEmail: string): Promise<string | null> {
     const user = await userCollection.findOne({
-      $or: [
-        { login: new RegExp(`^${loginOrEmail}$`) },
-        { email: new RegExp(`^${loginOrEmail}$`, 'i') },
-      ],
+      $or: [{ login: loginOrEmail }, { email: loginOrEmail }],
     });
 
     if (user) {
@@ -56,14 +53,20 @@ export const usersQwRepository = {
     } = queryDto;
 
     const skip = (pageNumber - 1) * pageSize;
+
     const filter: any = {};
+    const orConditions: any[] = [];
 
     if (searchLoginTerm) {
-      filter.login = { $regex: searchLoginTerm, $options: 'i' };
+      orConditions.push({ login: { $regex: searchLoginTerm, $options: 'i' } });
     }
 
     if (searchEmailTerm) {
-      filter.email = { $regex: searchEmailTerm, $options: 'i' };
+      orConditions.push({ email: { $regex: searchEmailTerm, $options: 'i' } });
+    }
+
+    if (orConditions.length > 0) {
+      filter.$or = orConditions;
     }
 
     const items = await userCollection
